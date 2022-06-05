@@ -56,20 +56,60 @@ exercise
         - You can set the attributes of a view object in your Kotlin code directly by property name.
           For example, the text in a text view is defined by the `android:text` attribute in the
           XML, and it is defined by the `text` property in Kotlin.
-        - A *click handler* is a method that is invoked when the user clicks or taps on a UI 
-          element.
-          To attach a click-handler method to a view such as a button, use the `setOnClickListener()`
+        - A *click handler* is a method that is invoked when the user clicks or taps on a UI
+          element. To attach a click-handler method to a view such as a button, use
+          the `setOnClickListener()`
           method.
     - Using Toasts    
       A toast is a view that shows the user a simple message in a small popup window.   
-      To create a toast, call the `makeText()` factory method on the `Toast` class with three arguments:
+      To create a toast, call the `makeText()` factory method on the `Toast` class with three
+      arguments:
         1. The context of the app `Activity`
         2. The message to display, for example a string resource
         3. A duration, for example `Toast.LENGTH_SHORT`
            To display the toast, call `show()`.
-- Gradle and Compatibility on Android
-    - For vector drawables' backward compatibility:
-        1. add `vectorDrawables.useSupportLibrary = true` in `build.gradle/defaultConfig` in the
-           module
-        2. add namespace: `xmlns:app="http://schemas.android.com/apk/res-auto` in layout
-        3. use `app:srcCompat=` for the drawable source
+- Images
+    - The `drawable` resources folder is where you should put all the image resources for your app.
+    - Vector drawables are images described in XML format. Vector drawables are more flexible than
+      bitmap images (such as PNG files) because they can be scaled to any size or resolution.
+    - To add a drawable to your app's layout, use an `<ImageView>` element. The source of the image
+      is in the `android:src` attribute. To refer to the drawable resource folder, use `@drawable`,
+      for example `@drawable/image_name`.
+    - Use the `ImageView` view in your `Activity` code for the image. You can
+      use `setImageResource()`
+      to change the view's image to a different resource. Use `R.drawable` to refer to specific
+      drawables, for example `setImageResource(R.drawable.image_name)`.
+    - Minimize the calls to `findViewById()` in your code by declaring fields to hold those views,
+      and initializing the fields in `onCreate()`. Use the `lateinit` keyword for the field to avoid
+      needing to declare it nullable.
+    - Use the `tools:src` attribute in the `<ImageView>` element in your layout to display an image
+      in only Android Studio's preview or design editor. You can then use an empty image
+      for `android:
+      src` for the final app.
+- Compatibility on Android
+    - API levels
+        - Each Android OS has an official version number and name (for example Android 9.0, "Pie")
+          and an API level (API 28). Use the API levels in your app's Gradle files to indicate the
+          versions of Android your app supports.
+        - The `compileSdkVersion` parameter in the `build.gradle` file specifies the Android API
+          level that Gradle should use to compile your app.
+        - The `targetSdkVersion` parameter specifies the most recent API level that you have tested
+          your app against. In many cases this parameter has the same value as `compileSdkVersion`.
+        - The `minSdkVersion` parameter specifies the oldest API level your app can run on.
+    - Android Jetpack
+        - Android Jetpack is a collection of libraries, developed by Google, that offers
+          backward-compatible classes and helpful functions for supporting older versions of
+          Android. Jetpack replaces and expands on the set of libraries formerly known as the
+          Android Support Library.
+        - Classes imported from the `androidx` package refer to the Jetpack libraries. Dependencies
+          to Jetpack in your `build.gradle` file also start with `androidx`.
+        - Vector drawables are only natively supported in versions of Android higher than API 21. In
+          older versions, Gradle generates PNG images for those drawables when your app is built.
+        - You can specify that the Android Support Library should be used for vector drawables in
+          older API versions with the `vectorDrawables.useSupportLibrary = true` configuration
+          parameter in the `build.gradle` file.
+        - Once you've enabled the support library for vector drawables, use the `app:srcCompat`
+          attribute in the `<ImageView>` element (instead of `android:src`) to specify the vector
+          drawable source for that image.
+        - The `app` namespace in your XML layout file is for attributes that come from either your
+          custom code or from libraries, not from the core Android framework.
