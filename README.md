@@ -6,7 +6,7 @@ First android app, these are the key points of this exercise
 - Basic app Structure
 - Layouts, Activities and inflation
 - Interaction via button
-- Gradle and Compatibility on Android
+- Gradle and Compatibility on Android   
     For vector drawables' backward compatibility: 
   1. add `vectorDrawables.useSupportLibrary = true` in `build.gradle` in the module
   2. add namespace: `xmlns:app="http://schemas.android.com/apk/res-auto` in layout
