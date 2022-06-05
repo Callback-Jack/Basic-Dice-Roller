@@ -103,6 +103,7 @@ exercise
           Android Support Library.
         - Classes imported from the `androidx` package refer to the Jetpack libraries. Dependencies
           to Jetpack in your `build.gradle` file also start with `androidx`.
+    - Vector Drawables
         - Vector drawables are only natively supported in versions of Android higher than API 21. In
           older versions, Gradle generates PNG images for those drawables when your app is built.
         - You can specify that the Android Support Library should be used for vector drawables in
